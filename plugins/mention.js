@@ -56,7 +56,7 @@ Shadow(
     async (message, match) => {
 
         var Mention = await getMention()
-        if (!Mention) return false;
+        if (!Mention) return;
         const { url } = await getMentionAudio()
         await mentionResponce(message, url)
     }

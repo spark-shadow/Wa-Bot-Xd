@@ -9,7 +9,6 @@ const {
     checkDiff,
     checkCommon,
     getAllGroupJids,
-    shadow_eval,
     forward,
     mentionJid,
     leftConfirm,
