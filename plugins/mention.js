@@ -1,6 +1,7 @@
 const { 
   Shadow,
   isMention,
+  getMention,
   mentionManager,
   mentionResponce,
   getMentionAudio
@@ -16,12 +17,12 @@ Shadow(
     },
     async (message, match) => {
 
+        var Mention = await getMention()
+        var url = ''
         if (!match)
             return await mentionManager(
                 '_Mention Manager_\n', message
             )
-         var Mention = await Db.getMention()
-           var url = ''
         if (!match && Mention < 1) {
             return await message.reply(
                 '_Mention not set_\n_to set mention:_\n_.mention url or .mention url>url for random_'
@@ -54,8 +55,8 @@ Shadow(
     },
     async (message, match) => {
 
-        var Mention = await Db.getMention()
-        if (!Mention) return;
+        var Mention = await getMention()
+        if (!Mention) return false;
         const { url } = await getMentionAudio()
         await mentionResponce(message, url)
     }
