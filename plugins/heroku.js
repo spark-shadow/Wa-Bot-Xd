@@ -376,3 +376,76 @@ bot(
         }
     }
 )
+const { SUDO } = require("../config");
+bot(
+    {
+        pattern: "setsudo ?(.*)",
+        fromMe: true,
+        desc: "set sudo var",
+        type: "heroku"
+    },
+    async (m, text) => {
+      
+        var newSudo = (m.reply_message ? m.reply_message.jid : "" || text).split(
+            "@"
+        )[0];
+        if (!newSudo)
+            return await m.reply("*reply to a number*");
+        var setSudo = (SUDO + "," + newSudo).replace(/,,/g, ",");
+        setSudo = setSudo.startsWith(",") ? setSudo.replace(",", "") : setSudo;
+        await m.reply("```new sudo numbers are: ```" + setSudo);
+        await m.reply("_Restarting.._");
+        await heroku
+            .patch(baseURI + "/config-vars", {
+                body: {
+                    SUDO: setSudo
+                }
+            })
+            .then(async (app) => {});
+    }
+);
+bot(
+    {
+        pattern: "delsudo ?(.*)",
+        fromMe: true,
+        desc: "delete sudo",
+        type: "heroku",
+    },
+    async (m, text) => {
+
+        var newSudo = (m.reply_message ? m.reply_message.jid : "" || text).split(
+            "@"
+        )[0];
+        if (!newSudo) return await m.reply("*Need reply/mention/number*");
+        var setSudo = SUDO.replace(newSudo, "").replace(/,,/g, ",");
+        setSudo = setSudo.startsWith(",") ? setSudo.replace(",", "") : setSudo;
+        await m.reply("```NEW SUDO NUMBERS ARE: ```" + setSudo, {
+            quoted: m,
+        });
+        await m.reply("_Restarting.._");
+        await heroku
+            .patch(baseURI + "/config-vars", {
+                body: {
+                    SUDO: setSudo
+                }
+            })
+            .then(async (app) => {});
+    }
+);
+bot(
+    {
+        pattern: "getsudo ?(.*)",
+        fromMe: true,
+        desc: "Get Sudo var",
+        type: "heroku"
+    },
+    async (m) => {
+      
+        const vars = await heroku
+            .get(baseURI + "/config-vars")
+            .catch(async (error) => {
+                return await m.reply("HEROKU : " + error.body.message);
+            });
+        await m.reply("```" + `SUDO Numbers are : ${vars.SUDO}` + "```");
+    }
+);

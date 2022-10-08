@@ -2,7 +2,7 @@ const { bot, isAdmin } = require('../lib/')
 
 bot(
     {
-        pattern: 'del ?(.*)',
+        pattern: 'delt ?(.*)',
         fromMe: true,
         desc: 'Delete replied message for evryone',
         type: 'user'

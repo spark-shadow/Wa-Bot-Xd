@@ -427,7 +427,7 @@ bot({
   }
 );
 bot({
-        pattern: 'anmute ?(.*)',
+        pattern: 'aunmute ?(.*)',
         fromMe: true,
         desc: 'Group Auto un mute',
         type: 'user'
