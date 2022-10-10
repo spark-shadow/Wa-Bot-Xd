@@ -63,8 +63,7 @@ Bot(
 	{
 		pattern: 'help ?(.*)',
 		fromMe: MOD,
-		dontAddCommandList: true,
-		type: 'menu'
+		type: 'Command list'
 	},
 	async (message, match) => {
 
