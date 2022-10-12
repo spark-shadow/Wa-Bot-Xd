@@ -14,7 +14,8 @@ const {
         takeFullSS,
         attp,
         sendSticker,
-        pinterest
+        pinterest,
+        translator
       } = require('../lib/')
 const config = require('../config');
 let MOD = config.MODE == 'public' ? false : true
@@ -256,5 +257,22 @@ bot(
             caption: 'Media Url : ' + result,
             quoted: message.data
         }, 'image')
+    }
+)
+bot(
+    {
+        pattern: 'trt ?(.*)',
+        fromMe: MOD,
+        desc: 'Translate replied text',
+        type: 'misc'
+    },
+    async (message, match) => {
+
+        if (!message.reply_message)
+            return await message.reply(
+                '_Reply to a text message_\n*Example: .trt ml_'
+            )
+        const [to, from] = match.split(' ')
+        await translator(message, to, from)
     }
 )

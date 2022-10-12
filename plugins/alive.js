@@ -26,7 +26,7 @@ bot(
 	  
 	  if (!match || match.split(":") < 2)
       return await message.reply(
-        `_${prefix}poll question,option1,option2..._`
+        `_${prefix}poll question:option1,option2..._`
       );
     await message.poll(match)
 	}
