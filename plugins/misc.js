@@ -15,94 +15,98 @@ const {
         attp,
         sendSticker,
         pinterest,
-        translator
+        translator,
+        splitJids
       } = require('../lib/')
 const config = require('../config');
 let MOD = config.MODE == 'public' ? false : true
 
 bot(
-   {
-      pattern: 'fancy ?(.*)',
-      fromMe: MOD,
-      desc: 'convert text to stylish text',
-      type: 'misc'
-   },
-   async (message, match) => {
+    {
+        pattern: 'fancy ?(.*)',
+        fromMe: MOD,
+        desc: 'convert text to stylish text',
+        type: 'misc'
+    },
+    async (message, match) => {
 
-      if (!match)
-         return await message.reply(
-            '_Give me a Text_'
-         )
-      let result = await fancyText(match)
-      let text = `Orginal Text: *${match}*\n\n❐ Fancy texts:\n\n`
-      let no = 1
-      for (let i of result) {
-         text += `${no++}. ${i.result}\n\n`
-      }
-      await message.send(text, {
-         quoted: message.data
-      })
-   }
+        if (!match)
+            return await message.reply(
+                '_Give me a Text_'
+            )
+        let result = await fancyText(match)
+        let text = `Orginal Text: *${match}*\n\n❐ Fancy texts:\n\n`
+        let no = 1
+        for (let i of result) {
+            text += `${no++}. ${i.result}\n\n`
+        }
+        await message.send(text, {
+            quoted: message.data
+        })
+    }
 )
 bot(
-   {
-      pattern: 'style ?(.*)',
-      fromMe: MOD,
-      desc: 'convert text to fancy text',
-      type: 'misc'
-   },
-   async (message, match) => {
+    {
+        pattern: 'style ?(.*)',
+        fromMe: MOD,
+        desc: 'convert text to fancy text',
+        type: 'misc'
+    },
+    async (message, match) => {
 
-      if (!match || !message.reply_message || !message.reply_message.text)
-         return await message.reply('_Give me a text or reply to a text_')
-      let text = mono("Fancy text generator\n\nreply to a text with number\n\n");
-      allFonts(!match || !message.reply_message).forEach((txt, num) => {
-         text += `${(num++)} ${txt}\n`;
-      });
-      return await message.reply(text);
-   }
+        if (!match || !message.reply_message)
+            return await message.reply('_Give me a text or reply to a text_')
+        let text = mono("Fancy text generator\n\nreply to a text with number\n\n");
+        allFonts(match || message.reply_message).forEach((txt, num) => {
+            text += `${(num++)} ${txt}\n`;
+        });
+        return await message.reply(text);
+    }
 )
 bot(
-	{
-		pattern: 'forward ?(.*)',
-		fromMe: true,
-		desc: 'forward replied message',
-		type: 'misc'
-	},
-	async (message, match) => {
+    {
+        pattern: 'forward ?(.*)',
+        fromMe: true,
+        desc: 'forward replied message',
+        type: 'misc'
+    },
+    async (message, match) => {
 
-      if (!message.reply_message)
-         return await message.reply(`_Replay to any message_\n  _example: .forward jid_`)
-      await forward (message, match)
-   }
+        if (!message.reply_message)
+            return await message.reply(`_Replay to any message_\n  _example: .forward jid jid_`)
+        const { jids } = await splitJids(match)
+        for (let jid of jids) {
+            await forward(message, jid)
+        }
+    }
 )
 bot(
-	{
-		pattern: 'save ?(.*)',
-		fromMe: true,
-		desc: 'your own number will send the repled msg',
-		type: 'misc'
-	},
-	async (message, match) => {
+    {
+        pattern: 'save ?(.*)',
+        fromMe: true,
+        desc: 'your own number will send the repled msg',
+        type: 'misc'
+    },
+    async (message, match) => {
 
-      if (!message.reply_message)
-         return await message.reply(`_Replay to any message_`)
-      await forward (message, message.client.user.id)
-   }
+        if (!message.reply_message)
+            return await message.reply(`_Replay to any message_`)
+        await forward(message, message.client.user.id)
+    }
 )
 bot(
-	{
-		pattern: 'rdmore ?(.*)',
-		fromMe: MOD,
-		desc: 'add readmore in text',
-		type: 'misc'
-	},
-	async (m, match) => {
+    {
+        pattern: 'rdmore ?(.*)',
+        fromMe: MOD,
+        desc: 'add readmore in text',
+        type: 'misc'
+    },
+    async (m, match) => {
 
-      if (!match)
-         return await m.reply('_Example: .rdmore Hello #rdmore_')
-     await m.reply(match.replaceAll('#rdmore', await readmore()))
-  }
+        if (!match)
+            return await m.reply('_Example: .rdmore Hello #rdmore_')
+        await m.reply(match.replaceAll('#rdmore', await readmore()))
+    }
 )
 bot(
     {
@@ -176,7 +180,7 @@ bot(
 
         if (!match)
             return await message.reply('Give me a text')
-            
+
         var text = encodeURI(match)
         await sendSticker(message, `https://api.xteam.xyz/ttp?file&text=${text}`, {
             quoted: message.data
@@ -201,25 +205,27 @@ bot(
     }
 )
 bot(
-  {
-    pattern: 'img ?(.*)',
-    fromMe: MOD,
-    desc: "Google Image search",
-    type: 'download'
-  },
-  async (message, match) => {
-    
-    if (!match)
-       return await message.reply("Enter word/amount");
-    let [query, amount] = match.split("/");
-    let result = await googleImage(query, amount);
-    await message.reply(
-      `_Downloading ${amount || 5} images for ${query}_`
-    );
-    for (let i of result) {
-      await message.sendFromUrl(i, { quoted: message.data });
+    {
+        pattern: 'img ?(.*)',
+        fromMe: MOD,
+        desc: "Google Image search",
+        type: 'download'
+    },
+    async (message, match) => {
+
+        if (!match)
+            return await message.reply("Enter word/amount");
+        let [query, amount] = match.split("/");
+        let result = await googleImage(query, amount);
+        await message.reply(
+            `_Downloading ${amount || 5} images for ${query}_`
+        );
+        for (let i of result) {
+            await message.sendFromUrl(i, {
+                quoted: message.data
+            });
+        }
     }
-  }
 );
 bot(
     {
@@ -231,7 +237,7 @@ bot(
     async (msg, text) => {
 
         text = msg.reply_message
-  
+
         if (!text)
             return await msg.reply('Replay to any Message..')
         const data = await toFormart(text)
