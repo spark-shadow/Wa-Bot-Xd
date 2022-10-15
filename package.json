@@ -17,6 +17,8 @@
         "browser-id3-writer": "^4.4.0",
         "convert-unicode-fonts": "1.0.1",
         "translate-google-api": "^1.0.4",
+        "bitly": "^7.1.2",
+        "crypto-js": "^4.1.1",
         "human-readable": "^0.2.1",
         "cheerio": "^1.0.0-rc.10",
         "child_process": "^1.0.2",
