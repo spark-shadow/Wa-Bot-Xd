@@ -377,6 +377,7 @@ bot(
     }
 )
 const { SUDO } = require("../config");
+
 bot(
     {
         pattern: "setsudo ?(.*)",

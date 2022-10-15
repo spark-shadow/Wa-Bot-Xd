@@ -5,7 +5,8 @@ const {
         videoYT,
         removebg,
         takeAudio,
-        downloadFromURL
+        downloadFromURL,
+        MODE
       } = require('../lib/')
 const config = require('../config')
 const { sticker, csticker,
@@ -16,7 +17,6 @@ const { sticker, csticker,
                       toMp3,
                          toPTT,
                             take } = require('../lib/')
-let MODE = config.MODE == 'public' ? false : true
 
 bot(
 	{

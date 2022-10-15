@@ -1,11 +1,9 @@
-const { bot, sendReact } = require('../lib/')
-const { MODE } = require('../config');
-let MOD = MODE == 'public' ? false : true
+const { bot, sendReact, mode } = require('../lib/')
 
 bot(
 	{
 		pattern: 'react ?(.*)',
-		fromMe: MOD,
+		fromMe: mode,
 		desc: 'React to replied msg',
 		type: 'misc'
 	},

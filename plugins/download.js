@@ -6,11 +6,10 @@ const {
        ytAudio,
        ytSearch,
        ytDownload,
-       Insta
+       Insta,
+       MODE
       } = require('../lib/')
-const config = require('../config')
-let MODE = config.MODE == 'public' ? false : true
-
+      
 Shadow(
     {
         pattern: "yta ?(.*)",

@@ -1,6 +1,7 @@
 const {
         bot,
         mono,
+        mode,
         allFonts,
         toStylish,
         fancyText,
@@ -16,15 +17,13 @@ const {
         sendSticker,
         pinterest,
         translator,
-        splitJids
+        splitJids,
       } = require('../lib/')
-const config = require('../config');
-let MOD = config.MODE == 'public' ? false : true
 
 bot(
     {
         pattern: 'fancy ?(.*)',
-        fromMe: MOD,
+        fromMe: mode,
         desc: 'convert text to stylish text',
         type: 'misc'
     },
@@ -48,7 +47,7 @@ bot(
 bot(
     {
         pattern: 'style ?(.*)',
-        fromMe: MOD,
+        fromMe: mode,
         desc: 'convert text to fancy text',
         type: 'misc'
     },
@@ -97,7 +96,7 @@ bot(
 bot(
     {
         pattern: 'rdmore ?(.*)',
-        fromMe: MOD,
+        fromMe: mode,
         desc: 'add readmore in text',
         type: 'misc'
     },
@@ -111,7 +110,7 @@ bot(
 bot(
     {
         pattern: 'upload ?(.*)',
-        fromMe: MOD,
+        fromMe: mode,
         desc: 'Upload the data of url',
         type: 'misc'
     },
@@ -128,7 +127,7 @@ bot(
 bot(
     {
         pattern: 'ss ?(.*)',
-        fromMe: MOD,
+        fromMe: mode,
         desc: 'Take screen shot from url',
         type: 'misc'
     },
@@ -150,7 +149,7 @@ bot(
 bot(
     {
         pattern: 'fullss ?(.*)',
-        fromMe: MOD,
+        fromMe: mode,
         desc: 'Take screen shot from url',
         type: 'misc'
     },
@@ -172,7 +171,7 @@ bot(
 bot(
     {
         pattern: 'ttp ?(.*)',
-        fromMe: MOD,
+        fromMe: mode,
         desc: 'make text to sticker',
         type: 'media'
     },
@@ -190,7 +189,7 @@ bot(
 bot(
     {
         pattern: 'attp ?(.*)',
-        fromMe: MOD,
+        fromMe: mode,
         desc: 'make text to colorfull sticker',
         type: 'media'
     },
@@ -207,7 +206,7 @@ bot(
 bot(
     {
         pattern: 'img ?(.*)',
-        fromMe: MOD,
+        fromMe: mode,
         desc: "Google Image search",
         type: 'download'
     },
@@ -230,7 +229,7 @@ bot(
 bot(
     {
         pattern: 'fetch ?(.*)',
-        fromMe: MOD,
+        fromMe: mode,
         desc: "stringyfy replied message",
         type: 'misc'
     },
@@ -250,7 +249,7 @@ bot(
 bot(
     {
         pattern: 'pinterest ?(.*)',
-        fromMe: MOD,
+        fromMe: mode,
         desc: "Downlod image from Pinterest",
         type: 'misc'
     },
@@ -268,7 +267,7 @@ bot(
 bot(
     {
         pattern: 'trt ?(.*)',
-        fromMe: MOD,
+        fromMe: mode,
         desc: 'Translate replied text',
         type: 'misc'
     },

@@ -1,5 +1,5 @@
 const Shadow = require('../lib/bot')
-const { VERSION, MODE } = require('../config')
+const { VERSION, modeE } = require('../config')
 const {
 	Bot,
 	mono,
@@ -8,12 +8,12 @@ const {
 	upTime,
 	readmore,
 	fetchFonts,
+	mode
 } = require('../lib/');
-let MOD = MODE == 'public' ? false : true
 
 Bot({
 	pattern: 'menu',
-	fromMe: MOD,
+	fromMe: mode,
 	type: 'Command list'
 }, async (message, match) => {
 
@@ -62,7 +62,7 @@ ${mono(`│◩ Bot: Wa-Bot-Xd
 Bot(
 	{
 		pattern: 'help ?(.*)',
-		fromMe: MOD,
+		fromMe: mode,
 		type: 'Command list'
 	},
 	async (message, match) => {

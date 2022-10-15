@@ -4,11 +4,10 @@ const {
         toSlowMotion,
         videoToGif,
         changeFps,
-        execute
+        execute,
+        MODE
       } = require('../lib/')
 const fs = require('fs')
-const config = require('../config')
-let MODE = config.MODE == 'public' ? false : true
 
 Shadow(
     {

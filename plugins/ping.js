@@ -1,10 +1,8 @@
-const { bot } = require('../lib/');
-const { MODE } = require('../config');
-let MOD = MODE == 'public' ? false : true
+const { bot, mode } = require('../lib/');
 
 bot({
         pattern: 'ping ?(.*)',
-        fromMe: MOD,
+        fromMe: mode,
         desc: 'Check Ping',
         type: 'misc'
     },
@@ -22,7 +20,7 @@ bot({
 )
 bot({
         pattern: 'qr ?(.*)',
-        fromMe: MOD,
+        fromMe: mode,
         desc: 'Convert text to qr & fetch data from qr',
         type: 'misc'
     },
