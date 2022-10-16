@@ -88,7 +88,7 @@ Shadow(
 );
 Shadow(
     {
-        pattern: 'insta ?(.*)',
+        pattern: 'ig ?(.*)',
         fromMe: MODE,
         desc: 'Download from Instagram',
         type: 'download',

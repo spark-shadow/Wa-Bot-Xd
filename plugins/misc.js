@@ -19,6 +19,7 @@ const {
         translator,
         splitJids,
       } = require('../lib/')
+const config = require ('../config')
 
 bot(
     {

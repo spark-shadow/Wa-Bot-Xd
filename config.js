@@ -36,6 +36,7 @@ module.exports = {
         }),
     SUDO: process.env.SUDO || '',
     MODE: process.env.MODE || 'private',
+    LOG_MSG: toBool(process.env.LOGS) || false,
     STICKER_DATA: process.env.STICKER_DATA || 'Shadow,🥰',
     AUDIO_DATA: process.env.AUDIO_DATA || '🍁●┼Ꮥн@∂øẘ ฿ℊღ┼●🍁,ᅠᅠᅠᅠ  Ꮥ н @ ∂ ø Ш,https://telegra.ph/file/36dbaf1d8e22c1afee30e.jpg',
     PREFIX: process.env.PREFIX || '^[.]',
