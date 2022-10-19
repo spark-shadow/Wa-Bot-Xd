@@ -98,11 +98,11 @@ Shadow(
         match = match || message.reply_message.text
         if (!match)
             return await message.reply(
-                '_Example : .insta url_'
+                '_Example : .ig url_'
             )
         const result = await Insta(match)
         if (!result.length)
-            return await message.reply('*Not found*')
+            return await message.reply('*_Not found_*')
         for (const url of result) {
             await message.sendFromUrl(url)
         }

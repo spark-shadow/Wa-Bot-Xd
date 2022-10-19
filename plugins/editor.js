@@ -86,7 +86,7 @@ Shadow(
             !message.reply_message.video
            )
             return await message.reply(
-              "_Reply to a video_"
+              "_Reply to a video.._"
            )
 
         await videoToGif(message)
@@ -130,7 +130,7 @@ Shadow(
 
         if (!message.reply_message || !message.reply_message.audio)
             return await message.reply(
-                "_Reply to a audio_"
+                "_Reply to a audio.._"
             )
         const media = await message.reply_message.toFile()
         match = match || '15'

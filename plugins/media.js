@@ -191,7 +191,7 @@ bot({
     async (message, match) => {
 
         if (!match)
-            return await message.reply('Give me a song name or link');
+            return await message.reply('_Give me a song name or link.._');
 
         await songYT(match, message)
     }
@@ -205,7 +205,7 @@ bot({
     async (message, match) => {
 
         if (!match)
-            return await message.reply('Give me a video link');
+            return await message.reply('_Give me a video link.._');
 
         await videoYT(match, message)
     }

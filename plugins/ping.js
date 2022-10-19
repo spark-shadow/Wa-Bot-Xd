@@ -37,7 +37,6 @@ bot({
             return await message.reply(
                 '_Example : qr text*\n*Reply to a qr code.._'
             )
-
         const { bitmap } = await jimp.read(
             await message.reply_message.toFile()
         )

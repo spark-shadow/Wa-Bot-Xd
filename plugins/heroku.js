@@ -4,22 +4,21 @@ const {
     prefix,
     secondsToHms,
     updateChecker,
-    sendUpdater
+    sendUpdater,
+    modeManager,
+    setMode
 } = require('../lib/')
 const Config = require('../config');
 const exec = require('child_process').exec;
 const got = require('got');
 const simpleGit = require("simple-git")
 const git = simpleGit()
-const {
-    PassThrough
-} = require('stream');
+const { PassThrough } = require('stream');
 
 const Heroku = require('heroku-client');
 const heroku = new Heroku({
     token: Config.HEROKU_API_KEY
 });
-
 let baseURI = '/apps/' + Config.HEROKU_APP_NAME;
 
 bot(
@@ -450,3 +449,18 @@ bot(
         await m.reply("```" + `SUDO Numbers are : ${vars.SUDO}` + "```");
     }
 );
+bot(
+    {
+        pattern: "mode ?(.*)",
+        fromMe: true,
+        desc: "Mode Manager",
+        type: "heroku"
+    },
+    async (message, match) => {
+
+        if (!match)
+            return await modeManager(`_Mode Manager_`, message)
+        await setMode(match)
+         await message.reply(`_Mode Changed to ${match}_`)
+    }
+)
