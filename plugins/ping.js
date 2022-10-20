@@ -42,4 +42,4 @@ bot({
         )
         await Qr.readQrCode(message, bitmap)
     }
-)
+);

@@ -3,8 +3,8 @@ const {
         mono,
         mode,
         allFonts,
-        toStylish,
-        fancyText,
+        toFancy,
+        getAllFonts,
         readmore,
         googleImage,
         toFormart,
@@ -30,37 +30,18 @@ bot(
     },
     async (message, match) => {
 
-        if (!match)
+        if (!match || (message.reply_message.text && (!match || isNaN(match) || match < 1 || match > 33)))
             return await message.reply(
-                '_Give me a Text_'
+                '_Give Me A Text_\n_Example:_\n_.fancy text_\n_or_\n_Replay to a message as .fancy 1_'
             )
-        let result = await fancyText(match)
-        let text = `Orginal Text: *${match}*\n\n❐ Fancy texts:\n\n`
-        let no = 1
-        for (let i of result) {
-            text += `${no++}. ${i.result}\n\n`
-        }
-        await message.send(text, {
+        if (message.reply_message.text)
+            return await message.reply(
+                toFancy(message.reply_message.text, match)
+            )
+        const { result } = await getAllFonts(match)
+        await message.send(result, {
             quoted: message.data
         })
-    }
-)
-bot(
-    {
-        pattern: 'style ?(.*)',
-        fromMe: mode,
-        desc: 'convert text to fancy text',
-        type: 'misc'
-    },
-    async (message, match) => {
-
-        if (!match || !message.reply_message)
-            return await message.reply('_Give me a text or reply to a text_')
-        let text = mono("Fancy text generator\n\nreply to a text with number\n\n");
-        allFonts(match || message.reply_message).forEach((txt, num) => {
-            text += `${(num++)} ${txt}\n`;
-        });
-        return await message.reply(text);
     }
 )
 bot(

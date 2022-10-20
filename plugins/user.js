@@ -445,4 +445,4 @@ bot({
       return await client.groupSettingUpdate(message.jid, "not_announcement");
     });
   }
-);
+)

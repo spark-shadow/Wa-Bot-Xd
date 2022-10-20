@@ -20,4 +20,4 @@ https://heroku.com/deploy?template=https://github.com/spark-shadow/Wa-Bot-Xd
 
 # Thanks to
 - @ [lyfe](https://github.com/lyfe00011)
-- @ [mehafil](https://github.com/Mehafil07)
+- @ [mehafil](https://github.com/Narux07)
