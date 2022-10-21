@@ -6,7 +6,7 @@ const {
 	mode,
 	Fancy,
 	prefix,
-	upTime,
+	UpTime,
 	readmore,
 	fetchFonts
 } = require('../lib/');
@@ -18,7 +18,7 @@ Bot({
 }, async (message, match) => {
 
 	const commands = {}
-	const { totalPlugins, date, day, time } = require ('../lib/')
+	const { totalPlugins, Date, Day, Time } = require ('../lib/')
 	const Font = fetchFonts()
 	Shadow.commands.map(async (command, index) => {
 		if (command.dontAddCommandList === false && command.pattern !== undefined) {
@@ -45,10 +45,10 @@ ${mono(`│◩ Bot: Wa-Bot-Xd
 │◩ mode: ${MODE}
 │◩ version: ${VERSION}
 │◩ plugins: ${totalPlugins(Shadow)}
-│◩ date: ${date}
-│◩ day: ${day}
-│◩ time: ${time}
-│◩ uptime: ${await upTime()}
+│◩ date: ${Date}
+│◩ day: ${Day}
+│◩ time: ${Time}
+│◩ uptime: ${UpTime()}
 `)}╰────────────────────────
 `
 	for (const command in commands) {
