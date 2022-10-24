@@ -1,4 +1,3 @@
-// by @shadow
 const { bot, alive_message, prefix, mode } = require('../lib/')
 
 bot(

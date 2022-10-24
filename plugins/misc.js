@@ -18,6 +18,7 @@ const {
         pinterest,
         translator,
         splitJids,
+        Bitly
       } = require('../lib/')
 const config = require ('../config')
 
@@ -261,5 +262,43 @@ bot(
             )
         const [to, from] = match.split(' ')
         await translator(message, to, from)
+    }
+)
+bot(
+    {
+        pattern: 'bitly ?(.*)',
+        fromMe: mode,
+        desc: 'convert url to bitly',
+        type: 'misc'
+    },
+    async (message, match) => {
+
+        match = match || message.reply_message.text;
+        if (!match) return await message.reply("_Reply to a url or enter a url_");
+        if (!isUrl(match)) return await message.reply("_Not a url_");
+        let url = await Bitly(match);
+        return await message.reply(url.link);
+    }
+)
+bot(
+    {
+        pattern: 'spdf ?(.*)',
+        fromMe: mode,
+        desc: 'convert site to pdf',
+        type: 'misc'
+    },
+    async (message, match) => {
+
+        match = match || message.reply_message.text;
+        if (!match || !isUrl(match))
+            return await message.reply("_Enter a url_");
+        let url = new URL(match);
+        await message.sendFromUrl(
+            `https://api.html2pdf.app/v1/generate?url=${match}&apiKey=begC4dFAup1b8LyRXxAfjetfqDg2uYx8PWmh9YJ59tTZXiUyh2Vs72HdYQB68vyc`,
+            {
+                fileName: `${url.origin}.pdf`,
+                mimetype: "application/pdf"
+            }
+        );
     }
 )

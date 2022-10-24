@@ -30,7 +30,7 @@ bot(
      if (!match) return await message.reply('Example .emix 🙂❤️')
      await emix(message, match)
    }
-)
+);
 bot(
 	{
 		pattern: 'emoji ?(.*)',

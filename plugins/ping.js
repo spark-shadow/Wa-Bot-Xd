@@ -1,4 +1,4 @@
-const { bot, mode } = require('../lib/');
+const { bot, mode, addCmd } = require('../lib/');
 
 bot({
         pattern: 'ping ?(.*)',
