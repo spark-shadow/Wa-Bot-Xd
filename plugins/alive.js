@@ -11,7 +11,7 @@ bot(
 
         await alive_message(match, message)
     }
-)
+);
 bot(
     {
         pattern: 'poll ?(.*)',
@@ -27,4 +27,4 @@ bot(
             );
         await message.poll(match)
     }
-)
+);

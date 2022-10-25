@@ -41,7 +41,7 @@ Shadow(
             await ytAudio(result, message)
         }
     }
-);
+)
 Shadow(
     {
         pattern: "ytv ?(.*)",

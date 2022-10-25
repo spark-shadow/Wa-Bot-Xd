@@ -5,10 +5,122 @@ const {
         videoToGif,
         changeFps,
         execute,
+        mediaEditor,
         MODE
       } = require('../lib/')
 const fs = require('fs')
 
+Shadow(
+    {
+        pattern: 'reverse ?(.*)',
+        fromMe: MODE,
+        desc: 'reverse replied audio/video',
+        type: 'editor'
+    },
+    async (message, match) => {
+
+        if (!message.reply_message && !message.reply_message.audio && !message.reply_message.video)
+            return await message.reply('_Give me a video/audio_')
+
+        if (message.reply_message.video) {
+            await message.send(
+                await mediaEditor(
+                    await message.reply_message.toFile(), 'v-reverse'),
+                {
+                    quoted: message.data
+                }, 'video'
+            )
+        } else if (message.reply_message.audio) {
+            await message.send(
+                await mediaEditor(
+                    await message.reply_message.toFile(), 'a-reverse'),
+                {
+                    quoted: message.data
+                }, 'audio'
+            )
+        }
+    }
+)
+Shadow(
+    {
+        pattern: 'avec ?(.*)',
+        fromMe: MODE,
+        desc: 'audio to video',
+        type: 'editor'
+    },
+    async (message, match) => {
+
+        if (!message.reply_message || !message.reply_message.audio)
+            return await message.reply('_Give me a audio_')
+        await message.send(
+            await mediaEditor(
+                await message.reply_message.toFile(), 'avec'),
+            {
+                quoted: message.data
+            }, 'video'
+        )
+    }
+)
+Shadow(
+    {
+        pattern: 'low ?(.*)',
+        fromMe: MODE,
+        desc: 'reduce audio speed',
+        type: 'editor'
+    },
+    async (message, match) => {
+
+        if (!message.reply_message || !message.reply_message.audio)
+            return await message.reply('_Give me a audio_')
+        await message.send(
+            await mediaEditor(
+                await message.reply_message.toFile(), 'mp3-slow'),
+            {
+                quoted: message.data
+            }, 'audio'
+        )
+    }
+)
+Shadow(
+    {
+        pattern: 'pitch ?(.*)',
+        fromMe: MODE,
+        desc: 'increace audio speed',
+        type: 'editor'
+    },
+    async (message, match) => {
+
+        if (!message.reply_message || !message.reply_message.audio)
+            return await message.reply('_Give me a audio_')
+        await message.send(
+            await mediaEditor(
+                await message.reply_message.toFile(), 'mp3-pitch'),
+            {
+                quoted: message.data
+            }, 'audio'
+        )
+    }
+)
+Shadow(
+    {
+        pattern: 'artimg ?(.*)',
+        fromMe: MODE,
+        desc: 'adjust image details',
+        type: 'editor'
+    },
+    async (message, match) => {
+
+        if (!message.reply_message || !message.reply_message.image)
+            return await message.reply('_Give me a image_')
+        await message.send(
+            await mediaEditor(
+                await message.reply_message.toFile(), 'img-color'),
+            {
+                quoted: message.data
+            }, 'image'
+        )
+    }
+)
 Shadow(
     {
         pattern: 'merge ?(.*)',
@@ -86,7 +198,7 @@ Shadow(
             !message.reply_message.video
            )
             return await message.reply(
-              "_Reply to a video.._"
+              "_Reply to a video_"
            )
 
         await videoToGif(message)
@@ -130,7 +242,7 @@ Shadow(
 
         if (!message.reply_message || !message.reply_message.audio)
             return await message.reply(
-                "_Reply to a audio.._"
+                "_Reply to a audio_"
             )
         const media = await message.reply_message.toFile()
         match = match || '15'

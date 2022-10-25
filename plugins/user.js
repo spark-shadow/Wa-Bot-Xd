@@ -44,7 +44,7 @@ bot({
             quoted: message.data
         })
     }
-)
+);
 bot({
         pattern: 'left ?(.*)',
         fromMe: true,
