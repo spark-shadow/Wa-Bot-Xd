@@ -42,4 +42,4 @@ bot(
             return await message.reply(`_I'm not an admin._`)
         await message.delete(dlt_key)
     }
-)
+);

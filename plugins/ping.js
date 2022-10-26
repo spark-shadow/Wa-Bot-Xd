@@ -17,7 +17,7 @@ bot({
             '*_Pong!_*\n _' + (end - start) + ' ms_'
         );
     }
-)
+);
 bot({
         pattern: 'qr ?(.*)',
         fromMe: mode,

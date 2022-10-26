@@ -61,7 +61,7 @@ bot(
             await forward(message, jid)
         }
     }
-)
+);
 bot(
     {
         pattern: 'save ?(.*)',

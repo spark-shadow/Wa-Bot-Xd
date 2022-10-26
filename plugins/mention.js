@@ -13,7 +13,7 @@ bot(
     {
         pattern: 'mention ?(.*)',
         fromMe: true,
-        desc: 'Set welcome message',
+        desc: 'Set mention auto reply',
         type: 'user'
     },
     async (message, match) => {
@@ -52,7 +52,7 @@ bot(
             return await message.reply('Mention added');
         }
     }
-)
+);
 bot({
         on: 'text',
         fromMe: false,

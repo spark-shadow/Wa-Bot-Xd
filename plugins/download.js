@@ -107,4 +107,4 @@ Shadow(
             await message.sendFromUrl(url)
         }
     }
-);
+)

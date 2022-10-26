@@ -44,7 +44,7 @@ bot({
             quoted: message.data
         })
     }
-);
+)
 bot({
         pattern: 'left ?(.*)',
         fromMe: true,
@@ -179,6 +179,48 @@ bot({
         await message.sendMessage(`_Group link resetted_`, {
             quoted: message.data
         })
+    }
+)
+bot({
+        pattern: 'block ?(.*)',
+        fromMe: true,
+        desc: 'To block a person',
+        type: 'user'
+    },
+    async (message, match) => {
+
+        if (message.data.isGroup) {
+            let jid = message.mention[0] || message.reply_message.jid;
+            if (!jid) return await message.reply("_Reply to a person or mention_");
+            await message.block(jid);
+            return await message.send(`_@${jid.split("@")[0]} blocked_`, {
+                mentions: [jid],
+            });
+        } else {
+            await message.block(message.jid);
+            return await message.reply("_User blocked_");
+        }
+    }
+)
+bot({
+        pattern: 'unblock ?(.*)',
+        fromMe: true,
+        desc: 'To unblock a blocked person',
+        type: 'user'
+    },
+    async (message, match) => {
+
+        if (message.data.isGroup) {
+            var jid = message.mention[0] || message.reply_message.jid;
+            if (!jid) return await message.reply("_Reply to a person or mention_");
+            await message.unblock(jid);
+            return await message.send(`_@${jid.split("@")[0]} unblocked_`, {
+                mentions: [jid],
+            });
+        } else {
+            await message.unblock(message.jid);
+            return await message.reply("_User unblocked_");
+        }
     }
 )
 bot({
@@ -445,4 +487,4 @@ bot({
       return await client.groupSettingUpdate(message.jid, "not_announcement");
     });
   }
-)
+);
