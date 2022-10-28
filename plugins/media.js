@@ -191,7 +191,7 @@ bot({
     async (message, match) => {
 
         if (!match)
-            return await message.reply('_Give me a song name or link.._');
+            return await message.reply('Give me a song name or link');
 
         await songYT(match, message)
     }
@@ -205,7 +205,7 @@ bot({
     async (message, match) => {
 
         if (!match)
-            return await message.reply('_Give me a video link.._');
+            return await message.reply('Give me a video link');
 
         await videoYT(match, message)
     }
@@ -225,5 +225,32 @@ bot({
 
         let audio = await message.reply_message.toFile('audio')
         await takeAudio(match, fs.readFileSync(audio), message)
+    }
+)
+bot(
+    {
+        pattern: 'vv ?(.*)',
+        fromMe: MODE,
+        desc: 'Get view once media',
+        type: 'media'
+    },
+    async (message, match) => {
+
+        if (!message.reply_message || message.data.quoted.type != "view_once")
+            return await message.reply('_Replay to a view once message_')
+
+        if (message.data.quoted.mtype == "imageMessage") {
+            let media = await message.data.quoted.download()
+            await message.send(media,
+            {
+                quoted: message.data
+            }, 'image' )
+        } else if (message.data.quoted.mtype == "videoMessage") {
+            let media = await message.data.quoted.download()
+            await message.send(media,
+            {
+                quoted: message.data
+            }, 'video' )
+        }
     }
 )
