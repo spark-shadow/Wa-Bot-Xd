@@ -1,0 +1,14 @@
+{
+    "STRINGS": {
+        "owner": {
+          "name": "Ashin",
+          "contact": "+919526808481",
+          "insta": "_spark_shadow_"
+        },
+        "bot": {
+          "name": "wa-bot-xd",
+          "version": "1.0.0",
+          "support": "soon as possible"
+        }
+    }
+}
